@@ -8,13 +8,19 @@
 int main(void)
 {
 	const char *filename = "2425resitbiblio.txt";
+	int choice;
 	refEntry entries[100];
+	loadEntries(filename, entries);
 	
-	//displayMenu();
-    loadEntries(filename, entries);
-	//readFile(filename,entries);
-    printf("\n%d",isEqual("String","StriNg"));
+    do{
+    	choice = displayMenu();
+    	processChoice(choice,entries,15);
+	}while(choice!=0);
     
+    //printf(entries[0].author);
+	//readFile(filename,entries);
+    //printf("\n%d",isEqual("String","StriNg"));
+    //displayUWEHarwardRef(entries[0]);
     return 0;
 }
 
