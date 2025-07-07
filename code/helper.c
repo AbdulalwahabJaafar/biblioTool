@@ -240,7 +240,7 @@ void processChoice(int choice,refEntry entries[100],int count)
         case 3:
             printf("Enter publication year: ");
             scanf("%s", input);
-            //searchByYear(entries, count, input);
+            searchBySignleYear(entries, count, input);
             break;
 
         case 4:
@@ -317,7 +317,7 @@ void searchByAuthor(refEntry entries[], int count, const char *query) {
     strncpy(lowerQuery, query, sizeof(lowerQuery)); //copy query
     toLowerCase(lowerQuery); //change to lower case
 
-    int found = 0;
+    int found = 0,countfound=0;
     //printf("\nSearch results for Author \"%s\":\n", query); //debug message
 
     for (i=0; i < count; i++) { //check  authors of all entries
@@ -325,13 +325,17 @@ void searchByAuthor(refEntry entries[], int count, const char *query) {
         toLowerCase(authorCopy);  //change case to lower
 
         if (strstr(authorCopy, lowerQuery)) {  //strstr() is a standard library function in C used to: Find the first occurrence of a substring within a string
-            printf("Match found!\n");
+            //printf("Match found!\n");
+            countfound++;
 			displayUWEHarwardRef(entries[i]);
 			//printf("- %s \nby\n %s \n(%s)\n", entries[i].title, entries[i].author, entries[i].year); //found message
             found = 1;
         }
     }
-
+	if(countfound>0)
+    {
+    	printf("Total %d matches found.\n",countfound);
+	}
     if (!found) {
         printf("No matching authors found.\n");
     }
@@ -339,7 +343,7 @@ void searchByAuthor(refEntry entries[], int count, const char *query) {
 void searchByTitle(refEntry entries[], int count, const char *query) {
     char lowerQuery[100];
     char authorCopy[100];
-    int i = 0;
+    int i = 0,countfound=0;
     strncpy(lowerQuery, query, sizeof(lowerQuery)); //copy query
     toLowerCase(lowerQuery); //change to lower case
 
@@ -351,13 +355,50 @@ void searchByTitle(refEntry entries[], int count, const char *query) {
         toLowerCase(authorCopy);  //change case to lower
 
         if (strstr(authorCopy, lowerQuery)) {  //strstr() is a standard library function in C used to: Find the first occurrence of a substring within a string
-            printf("Match found!\n");
+            //printf("Match found!\n");
+            countfound++;
+			displayUWEHarwardRef(entries[i]);
+			//printf("- %s \nby\n %s \n(%s)\n", entries[i].title, entries[i].author, entries[i].year); //found message
+            found = 1;
+        }
+    }
+    if(countfound>0)
+    {
+    	printf("Total %d matches found.\n",countfound);
+	}
+
+    if (!found) {
+        printf("No matching authors found.\n");
+    }
+}
+
+void searchBySignleYear(refEntry entries[], int count, const char *query) {
+    char lowerQuery[100];
+    char authorCopy[100];
+    int i = 0,countfound=0;
+    strncpy(lowerQuery, query, sizeof(lowerQuery)); //copy query
+    toLowerCase(lowerQuery); //change to lower case
+
+    int found = 0;
+    //printf("\nSearch results for Author \"%s\":\n", query); //debug message
+
+    for (i=0; i < count; i++) { //check  authors of all entries
+        strncpy(authorCopy, entries[i].year, sizeof(authorCopy)); //copy author names
+        toLowerCase(authorCopy);  //change case to lower
+
+        if (strstr(authorCopy, lowerQuery)) {  //strstr() is a standard library function in C used to: Find the first occurrence of a substring within a string
+            //printf("Match found!\n");
+            countfound++;
 			displayUWEHarwardRef(entries[i]);
 			//printf("- %s \nby\n %s \n(%s)\n", entries[i].title, entries[i].author, entries[i].year); //found message
             found = 1;
         }
     }
 
+	if(countfound>0)
+    {
+    	printf("Total %d matches found.\n",countfound);
+	}
     if (!found) {
         printf("No matching authors found.\n");
     }
