@@ -40,8 +40,9 @@ void processChoice(int choice,refEntry entries[100],int count);
 void searchByTitle(refEntry entries[], int count, const char *query);
 void searchByAuthor(refEntry entries[], int count, const char *query);
 void searchBySignleYear(refEntry entries[], int count, const char *query);
-
-
+int yearStringToInt(char *str);
+void scanYearRange(int *startYear, int *endYear);
+void searchByYearRange(refEntry entries[], int count, int startYear, int endYear);
 #endif
 
 

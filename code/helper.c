@@ -224,6 +224,7 @@ void displayUWEHarwardRef(refEntry entry)
 void processChoice(int choice,refEntry entries[100],int count)
 {
 	char input[100];
+	int startyear,endyear;
 	switch (choice) {
         case 1:
             printf("Enter author name to search: ");
@@ -244,7 +245,9 @@ void processChoice(int choice,refEntry entries[100],int count)
             break;
 
         case 4:
-        	scanf("%s", input);
+        	printf("Enter year range (e.g., 2010-2020): ");
+        	scanYearRange(&startyear,&endyear);
+        	searchByYearRange(entries, count, startyear,endyear);
             // search by year range
             //printf("Feature not implemented yet: Search by year range.\n");
             break;
@@ -402,4 +405,54 @@ void searchBySignleYear(refEntry entries[], int count, const char *query) {
     if (!found) {
         printf("No matching authors found.\n");
     }
+}
+
+void searchByYearRange(refEntry entries[], int count, int startYear, int endYear) {
+    int found = 0;
+    int i = 0;
+    int countFound = 0;
+
+    for (i=0; i < count; i++) {
+        // Convert year string to integer
+        int entryYear = atoi(entries[i].year);
+
+        // Check if the year is within the given range
+        if (entryYear >= startYear && entryYear <= endYear) {
+            displayUWEHarwardRef(entries[i]);
+            found = 1;
+            countFound++;
+        }
+    }
+
+    if (countFound > 0) {
+        printf("Total %d matches found.\n", countFound);
+    } else {
+        printf("No entries found in the year range %d–%d.\n", startYear, endYear);
+    }
+}
+
+int yearStringToInt(char *str) {
+    int result = 0;
+
+    // Skip leading spaces
+    while (*str && *str==' ') {
+        str++;
+    }
+
+    // Convert the numeric part
+    while (*str && (*str>='0' && *str<='9')) {
+        result = result * 10 + (*str - '0');
+        str++;
+    }
+
+    return result;
+}
+
+
+void scanYearRange(int *startYear, int *endYear) {
+    printf("Type in start year and press enter:");
+    scanf("%d", startYear); // Expects input like: 2010-2020
+    printf("Type in end year and press enter:");
+    scanf("%d",endYear);
+    
 }
