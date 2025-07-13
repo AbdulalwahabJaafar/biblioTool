@@ -96,10 +96,6 @@ void FieldName(char *line, char *firstWord) {
     firstWord[i] = '\0'; // Null-terminate the string
 }
 
-
-#include <stdio.h>
-#include <string.h>
-
 int fieldValue(char *line, char *output, int max_len) {
     char *start = strchr(line, '{'); //start of {
     char *end = strchr(line, '}');   // index if }
@@ -282,7 +278,7 @@ void processChoice(int choice,refEntry entries[100],int count)
 
         case 10:
         	scanf("%s", input);
-            // Implement addNewEntry()
+            //  addNewEntry()
             //printf("Feature not implemented yet: Add new bibliography entry.\n");
             break;
 
